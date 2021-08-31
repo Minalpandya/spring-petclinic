@@ -6,12 +6,10 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
-
+jobs:
 - job: Build
-    displayName: Build Maven Project
-    steps:
+  displayName: Build Maven Project
+  steps:
     - task: Maven@3
       displayName: 'Maven Package'
       inputs:
@@ -25,12 +23,9 @@ pool:
     - upload: $(Build.ArtifactStagingDirectory)
       artifact: drop
 
-
-jobs:
+- job:
 - deployment: VMDeploy
   displayName: web
-  pool:
-    vmImage: 'ubuntu-latest'
   environment:
     name: Test-Env
     resourceType: VirtualMachine
